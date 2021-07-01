@@ -9,9 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/styled-components": "^5.1.10",
+    "csv-parse": "^4.16.0",
+    "fs": "^0.0.1-security",
     "next": "11.0.1",
+    "path": "^0.12.7",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "styled-components": "^5.3.0"
   },
   "devDependencies": {
     "@types/react": "17.0.11",
