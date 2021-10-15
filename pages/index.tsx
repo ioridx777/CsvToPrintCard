@@ -26,6 +26,11 @@ const Title = styled.div`
   font-size: 5mm;
   text-align: center;
 `;
+const SubTitle=styled.div`
+  font-size: 4.5mm;
+  margin: 5mm;
+  text-align: right;
+`;
 const Content = styled.div`
   position: relative;
   min-height: 30mm;
@@ -50,7 +55,10 @@ const CardFront = ({ content }: { content: any }) => {
       }}
     >
       <Title>{content[0]}</Title>
-      <Content>{content[1]}</Content>
+      <div>
+        <SubTitle>{content[3]}</SubTitle>
+        <Content>{content[1]}</Content>
+      </div>
     </CardFrame>
   );
 };
@@ -76,7 +84,6 @@ export default function Home({ content }: any) {
   // for (let i = 0; i < 9; i++) {
   //   cards.push(<CardFront content={cardsContent[i]} />);
   // }
-
   for (let i = 0; i < cardsContent.length; i += 9) {
     let cardFrontGridList = [];
     for (let j = 0; j < 9; j++) {
@@ -92,6 +99,7 @@ export default function Home({ content }: any) {
       <CardGrid key={`CardGrid ${i / 9}`}>{cardFrontGridList}</CardGrid>
     );
     let cardBackGridList = [];
+  
 
     for (let j = 0; j < 9; j += 3) {
       for (let k = 2; k >= 0; k--) {
@@ -127,13 +135,17 @@ export default function Home({ content }: any) {
 export async function getStaticProps() {
   const csvDir = fs.readdirSync("csv");
   const content = {};
+  console.log(`csvDir ${csvDir}`)
   // const parsedContent = csvParse(content[0]);
   // console.log(JSON.stringify(parsedContent[0]));
   for (let dir in csvDir) {
+    // if(!csvDir[dir].includes(".csv"))
+    //   continue;
     Object.assign(content, {
       [dir]: csvParse(fs.readFileSync("csv/" + csvDir[dir], "utf8")),
     });
   }
+  console.log(`${JSON.stringify(content)}`)
   return {
     props: {
       content: content,
